@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+//GET /api/users
 router.get('/', (req, res) => {
     User.findAll({
         attributes: { exclude: ['password'] }
@@ -13,6 +14,7 @@ router.get('/', (req, res) => {
         });
 });
 
+//GET /api/users/1
 router.get('/:id', (req, res) => {
     User.findOne({
         attributes: { exclude: ['password'] },
@@ -22,7 +24,7 @@ router.get('/:id', (req, res) => {
         include: [
             {
                 model: Post,
-                attributes: ['id', 'title', 'post_content', 'created_at']
+                attributes: ['id', 'title', 'post_contents', 'created_at']
             },
             {
                 model: Comment,
@@ -47,6 +49,7 @@ router.get('/:id', (req, res) => {
         })
 });
 
+//POST /api/users
 router.post('/', (req, res) => {
     User.create({
         username: req.body.username,
@@ -106,6 +109,7 @@ router.post('/logout', withAuth, (req, res) => {
     }
 });
 
+//PUT /api/users/1
 router.put('/:id', withAuth, (req, res) => {
     User.update(req.body, {
         individualHooks: true,
@@ -126,6 +130,7 @@ router.put('/:id', withAuth, (req, res) => {
         });
 });
 
+//DELETE /api/users/1 
 router.delete('/:id', withAuth, (req, res) => {
     User.destroy({
         where: {
