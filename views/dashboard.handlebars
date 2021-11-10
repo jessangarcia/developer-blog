@@ -18,12 +18,16 @@
 <section>
     <h2>Your Posts</h2>
     <ul>
-        {{#each posts as |post|}}
-        <li>
-            {{> post-info post}}
-        </li>
-        <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
-        {{/each}}
+        <div class="container">
+            {{#each posts as |post|}}
+            <li>
+                {{> post-info post}}
+            </li>
+            <div class="edit">
+                <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
+            </div>
+            {{/each}}
+        </div>
     </ul>
 </section>
 {{/if}}
